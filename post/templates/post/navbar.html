@@ -1,0 +1,154 @@
+{% load static %}
+<nav>
+    <div class="rebbithole-icon">
+        <a href="{% url 'home-timeline' %}" class="href">
+        <img src="{% static 'post/images/rebbithole.png' %}" alt="rebbithole" class="rebbithole-i">
+        <img src="{% static 'post/images/rebbit.png' %}" alt="rebbit" class="rebbit-i">
+        </a>
+    </div>
+    <section class="navbar">
+        <a href="{% url 'home-timeline' %}">
+            <div class="nav-item {{home}}">
+                <span class="item-text">Home</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-door-fill item-icon" viewBox="0 0 16 16">
+                    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                </svg>
+            </div>
+        </a>
+        <a href="{% url 'discover' %}">
+            <div class="nav-item {{dis}}">
+                <span class="item-text">Discover</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search item-icon" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </div>
+        </a>
+        <a href="{% url 'notification' %}">
+            <div class="nav-item {{noti}}">
+                <span class="item-text">Notification</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill item-icon" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                </svg>
+            </div>
+        </a>
+        <a href="{% url 'room' %}">
+            <div class="nav-item {{mes}}">
+                <span class="item-text">Room</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-envelope-fill item-icon" viewBox="0 0 16 16">
+                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                </svg>
+            </div>
+        </a>
+        <a href="{% url 'bookmarks' %}">
+            <div class="nav-item {{bm}}">
+            <span class="item-text">Bookmark</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bookmarks-fill item-icon" viewBox="0 0 16 16">
+                    <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                    <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                </svg>
+            </div>
+        </a>
+        <a href="{% url 'rebbithole-nav' %}">
+            <div class="nav-item {{rh}}">
+                <span class="item-text">Rebbithole</span>
+                <span class="item-icon item-icon-rh {{rhi}}">r/</span>
+            </div>
+        </a>
+        <a href="{% url 'profile' %}">
+            <div class="nav-item {{profile}}">
+            <span class="item-text">Profile</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-fill item-icon" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+            </div>
+        </a>
+        <input type="button" class="create-post-b" value="Write Post">
+        <div class="profile-card">
+            <img src="https://s2.svgbox.net/hero-solid.svg?ic=cog&color=000" class="profile-card-op" width="32" height="32">
+            Options
+            <div class="font-12 grey-font">u/{{request.user.username}}</div>
+        </div>
+    </section>
+    <!--Post Modal-->
+    <div id="write-post" class="modal-window">
+        <div>
+            <form method="POST" action="{% url 'create-post' %}" id="post-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <input type="submit" id="post-submit" class="btn-cmn btn-post-cmn" value="Post">
+                    <input type="button" value="Cancel" class="modal-close btn-cmn btn-close-cmn mr-10">
+                <div class="add-rebbithole-block">
+                    <span class="add-rh-i">r/</span>
+                    <input type="text" class="rebbithole-input" id="rebbithole-input" placeholder="rebbithole" />
+                </div>
+                <div class="post-rebbithole-items"></div>
+        
+                {{post_form.title}}
+                {{post_form.text}}
+                <div class="image-preview-area">
+                    <ul>
+                    </ul>
+                </div>
+                <figure class="image-dropezone-wrapper" ondragover="allowDrop(event)" ondrop="drop(event)" ondragleave="dragLeave(event)">
+                    <label class="image-dropzone-area" for="upload-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                            <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                            <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+                        </svg> &nbsp;
+                        Images
+                        <span class="font-12">
+                            &nbsp; drag and drop or click here to upload</span> 
+                    </label>
+                    <input type="file" id="upload-image" accept=".jpg, .jpeg, .png" multiple>
+                </figure>
+            </form>
+        </div>
+    </div>
+    <!--Options Modal-->
+    <div id="account-options" class="account-options-modal-window">
+        <div>
+            <span class="account-options-modal-ttl title-fonts">Account Options</span>
+            <input type="button" value="Close" title="Close" class="account-options-modal-close btn-cmn">
+            <div>
+                <b class="font-15 bluish-font acc-op-ch-pw-d"></b>
+            </div>
+            <div class="account-options-modal-activity">
+                <div class="acc-op-ch-pw">Change Password</div>
+                    <div class="acc-op-ch-pw-con">
+                        <div class="red-font font-14 acc-op-ch-pw-e"></div>
+                        <span class="acc-op-ch-pw-con-cancel">Cancel</span>
+
+                        <input type="password" id="f-password-c" placeholder="Current Password" autofocus>
+                        <span class="f-show-p-c">Show</span>
+
+                        <input type="password" id="f-password1" placeholder="New Password" autofocus>
+                        <span class="f-show-p1">Show</span>
+
+                        <input type="password" id="f-password2" placeholder="Confirm New Password">
+                        <span class="f-show-p2">Show</span>
+
+                        <input type="submit" value="Change" id="f-sub-pass">
+                    </div>
+                <div class="acc-op-del-acc">Delete Account</div>
+                    <div class="acc-op-del-acc-con">
+                        Deliting this account will remove all it's related data, are you sure, you want delete this account?
+                        <br>
+                        <button class="acc-op-del-acc-del">Yes, Permanently Delete This Account</button>
+                        <button class="acc-op-del-acc-cancel">Cancel</button>
+                    </div>
+                    
+                <div class="acc-op-lo">Logout</div>
+                    <div class="acc-op-lo-p">
+                        Okay then, <span class="greyish-font">{{request.user.username}}</span>
+                        <br>
+                        <a href="{% url 'logout' %}" class="acc-op-logout">Logout</a>
+                        <button class="acc-op-logout-cancel">Cancel</button>
+                    </div>
+            </div>
+            <div class="acc-op-del-acc-con-a">
+                Account will be deleted in <span class="acc-op-del-acc-con-10"></span>, you can still cancel it.
+                <br>
+                <button class="acc-op-del-acc-cancel-a">Cancel</button>
+            </div>
+        </div>
+    </div>
+</nav>

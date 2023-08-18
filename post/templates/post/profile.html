@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+<script>
+    document.title = "Profile | REBBITHOLE";
+</script>
+<article>
+    <div class="profile-nav-tab mb-10 title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <button type="button" class="profile-nav-tab-post profile-nav-actice">Posts</button>
+        <button type="button" class="profile-nav-tab-comment">Comments</button>
+    </div>
+    <div id="profile-nav-post">
+        <div class="prepend-post"></div>
+        {% for post in request.user.post_set.all reversed %}
+            {% include 'post/post.html' %}
+        {% empty %}
+            <div class="oops">hmm.. you haven't posted anything</div>
+        {% endfor %}
+    </div>
+    <div id="profile-nav-comment">
+        {% for comment in request.user.comment_set.all reversed %}
+            {% include 'post/comment.html' %}
+        {% empty %}
+            <div class="oops">hmm.. you haven't posted anything</div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+<div class="profile title-fonts">
+    <img src="{{request.user.avatar.url}}" alt="avatar" class="profile-avatar">   
+    <div class="profile-head-username">
+        <span class="grey-font">u/</span>{{request.user.username}}
+    </div>
+    <div class="r-u-name">{{request.user.name}}</div>
+    <div class="profile-edit-butt">Edit Profile &#9998;</div>
+    <div class="profile-head-3">
+        <div class="profile-following-butt">
+            {{request.user.following_set.all|length}} following
+        </div>
+        <div class="profile-followers-butt">
+            {{request.user.followers_set.all|length}} followers
+        </div>
+    </div>
+    <div class="profile-karma">
+        🔥 Karma <span class="greyish-font"> {{request.user.karma}} </span>
+    </div>
+    <div class="profile-body">
+        {% if request.user.bio %}
+            <div class="profile-bio mt-10 mb-10">{{request.user.bio}}</div>
+        {% endif %}
+        {% if request.user.url %}
+            ⛓<a href="{{request.user.url}}" target="_blank" class="profile-url-text">
+                {{request.user.url}}
+            </a>
+        {% else %}
+            ⛓ <a href="{{request.user.url}}" target="_blank" class="profile-url-text"></a>
+        {% endif %}
+    </div>
+</div>
+<!-- PROFILE UPDATE MODAL -->
+<div class="profile-update-modal-window">
+    <div>
+        <form method="POST" id="profile-update-form" action="{%url 'update-profile'%}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-update-modal-buttons title-fonts">
+                <span class="account-update-modal-ttl pl-10">Update Profile</span>
+                <input type="submit" id="profile-update-submit" class="btn-cmn btn-post-cmn" value="Update">
+                <input type="button" value="Cancel" class="profile-update-modal-close btn-cmn btn-close-cmn mr-10">
+            </div>
+            <br>
+            <div class="profile-update-form-content">
+                <div>
+                    <label for="profile_avatar" class="profile-update-avatar-label">
+                        <img class="rh-p-cam" src="https://s2.svgbox.net/materialui.svg?ic=image&color=000" width="20" height="20">
+                        Avatar
+                    </label>
+                    {{profile_form.avatar}}
+                    <img class="profile_avatar_img" src="{{request.user.avatar.url}}" alt="avatar">
+                </div>
+                <div>
+                    {{profile_form.name}}
+                    {{profile_form.url}}
+                    {{profile_form.bio}}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- FOLLOWING FOLLOWERD LIST -->
+<div class="profile-follow-list-modal-window">
+    <div>
+        <input type="button" Value="Close" class="profile-follow-list-modal-close btn-cmn btn-close-cmn title-fonts">
+        <div class="profile-follow-list-nav-tab">
+            <div class="profile-follow-list-nav title-fonts">
+                <button type="button" class="profile-follow-list-nav-tab-following">Following</button>
+                <button type="button" class="profile-follow-list-nav-tab-followers">Followers</button>
+            </div>
+        </div>
+        <div id="profile-follow-list-nav-following">
+            {% for f in request.user.following_set.all reversed %}
+                <div class="profile-follow-ing-wers-item">
+                    <a href="{% url 'user-profile' f.followed.username %}" class="">
+                        <img src="{{f.followed.avatar.url}}" alt="">
+                        <div>
+                            <div>u/{{f.followed.username}}</div>
+                            <div>Karma {{f.followed.karma}}</div>
+                        </div>
+                    </a>
+                    <button type="button" class="following-button" user-id="{{f.followed.id}}">Following</button>
+                </div>
+            {% empty %}
+                <div class="oops">😀 Wow, such empty</div>
+            {% endfor %}
+        </div>  
+        <div id="profile-follow-list-nav-followers">
+            {% for f in request.user.followers_set.all %}
+                <div class="profile-follow-ing-wers-item">
+                    <a href="{% url 'user-profile' f.follower.username %}" class="">
+                        <img src="{{f.follower.avatar.url}}" alt="avatar">
+                        <div>
+                            <div>u/{{f.follower.username}}</div>
+                            <div>{{f.follower.karma}} karma</div>
+                        </div>
+                    </a>
+                    {% var 'flag' 0 %}
+                    {% for fu in request.user.following_set.all %}
+                        {% if fu.followed == f.follower %}
+                            {% var 'flag' 1 %}
+                            <button type="button" class="following-button" user-id="{{f.follower.id}}">Following</button>
+                        {% endif %}
+                    {% endfor %}
+                    {% if flag != 1 %}
+                        <button type="button" class="follow-button" user-id="{{f.follower.id}}">Follow</button>            
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="oops">😀 Wow, such empty</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

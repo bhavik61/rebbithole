@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+{% now "Y-m-d" as today %}
+
+<article>
+    <script>
+        document.title = "r/{{room.room}} | REBBITHOLE";
+    </script>
+    <div class="profile-nav-tab title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <a href="{% url 'rebbithole' room.room %}" class="nav-title-head room-title-head overflow-dots">
+            r/{{room.room}}
+        </a>
+    </div>
+    <div id="room-message-list">
+        {% for message in messages %}    
+            {% if message.user != request.user %}
+                <p class="from-them">{{ message.message }}</p>
+                <span>
+                    <a href="{% url 'user-profile' message.user %}">
+                        <!--img src="{{ message.user.avatar.url }}" alt="avatar"-->
+                        {{ message.user }}
+                        <span>
+                            •
+                            {% if message.created|date:"Y-m-d" == today %}
+                                {{message.created|timesince|upto:','}} ago
+                            {% else %}
+                                {{ message.created|date:"d/m/y, H:i" }}
+                            {% endif %}
+                        </span>
+                    </a>
+                </span>
+            {% else %}
+                <p class="from-me">{{ message.message }}</p>
+                <span class="from-me-d">
+                    <span>
+                        •
+                        {% if message.created|date:"Y-m-d" == today %}
+                            {{message.created|timesince|upto:','}} ago
+                        {% else %}
+                            {{ message.created|date:"d/m/y, H:i" }}
+                        {% endif %}
+                    </span>
+                    {{ message.user }}
+                    <!--img src="{{ message.user.avatar.url }}" alt="avatar"-->
+                </span>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="message-input-con">
+        <textarea class="input" type="text" placeholder="Message.. " id="message-input" rows="1"></textarea>
+        <!--input class="input" type="text" placeholder="Message.. " id="message-input"-->
+        <a class="" id="message-send">Send</a>
+    </div>
+    
+    {{ room.room|json_script:"room" }}
+
+<script>
+    const roomName  = JSON.parse(document.getElementById('room').textContent);
+    const userName  = '{{request.user}}';
+    console.log(roomName);
+    console.log(userName);
+
+    function scrollToBottom() {
+        let objDiv = document.getElementById("room-message-list");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    scrollToBottom();
+    $('#message-input').focus();
+    // assign a WebSocket
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + roomName
+        + '/'
+    );
+    // append message in message list
+    chatSocket.onmessage = function(e) {
+        console.log('onmessage');
+        const data = JSON.parse(e.data);
+        if (data.message) {
+            
+            var d = new Date(); // current timw
+            if(data.username!="{{request.user.username}}"){
+                document.querySelector('#room-message-list').innerHTML += (
+                '<p class="from-them">'+ data.message +'</p><span>'+
+                '<a href=/profile/'+data.username+'/>' +
+                data.username+' <span>'+d.getHours()+":"+d.getMinutes()+'</span></span>');   
+            }else{
+                document.querySelector('#room-message-list').innerHTML += (
+                '<p class="from-me">'+ data.message +'</p><span class="from-me-d">'+
+                data.username+' <span>'+d.getHours()+":"+d.getMinutes()+'</span></span>');
+            }
+        }
+        else {
+            alert('The message is empty!');
+        }
+        scrollToBottom();
+        $("#message-input").css('height','40px');
+        $('#message-input').focus();
+    };
+
+    chatSocket.onclose = function(e) {
+        console.log('The socket closed unexpectadly');
+    };
+    // triggered when clicked on send
+    document.querySelector('#message-send').onclick = function(e) {
+        const messageInputDom = document.querySelector('#message-input');
+        const message = messageInputDom.value; 
+        console.log('messageInputDom');
+        console.log(message);
+        console.log(typeof message);
+
+        if(!message){
+        console.log('-----------------');
+
+                $(this).focus()
+        }
+        else{
+            // send WebSocket
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'username': userName,
+                'room': roomName,
+            }));
+            messageInputDom.value = '';
+        }
+    };
+</script>
+{% endblock %}
+
+{% block top %}
+<div class="top-right-rooms">
+    <div class="top-right-heading title-fonts">
+		Recent
+	</div>
+    {% for key, val in last_messages.items %}
+        <a href="{% url 'room' key %}" class="top-right-rebbithole">
+            <img src="{{ val.avatar }}" class="rebbithole-nav-rh-avatar">
+            <div class="rebbithole-nav-rh-name-room overflow-dots">
+                r/{{key}} 
+                <div class="font-14 grey-font">Join Conversation</div>
+            </div>
+        </a>
+    {% empty %}
+        <div class="oops">😀 Wow, such empty</div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,227 @@
+/*---  REBBITHOLE NAV  ---*/
+.rebbithole-nav-create-rh{
+    border-radius: 3px;
+    border: 0;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin-top: 3px;
+    float: right;
+    color: white;
+    background: linear-gradient(to right, #ff5252 40%, #ff8e24 100%);
+    transition: .5s;
+    cursor: pointer;
+}
+.rebbithole-nav-create-rh:hover{
+    background: linear-gradient(to right, #ff5252 80%, #ff8e24 100%);
+}
+.rebbithole-nav-rh-item-con-nav{
+    margin :0 auto;
+    width: 450px;
+    display: grid;
+    grid-template-columns: 73% auto;
+}
+.rebbithole-nav-rh-item-con{
+    background-color: white;
+    padding-left: 5px;
+    border-bottom: .5px solid #ececec;
+    border-radius: 3px;
+    transition: .3s;
+}
+.rebbithole-nav-rh-item-con:hover{
+    background-color: #f8f8f8;
+}
+.rebbithole-nav-rh-item{
+    display: grid;
+    grid-template-columns: 10% 90%;
+
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+    padding: 5px;
+}
+.rebbithole-nav-rh-avatar{
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 999px;
+}
+.rebbithole-nav-rh-name{
+    color: #525252;
+    padding: 5px 10px 0 13px;
+    margin-left: 10px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Rebbithole Create Modal */
+.create-rh-modal-window {
+    position: fixed;
+    background-color: var(--modal-bg);
+    font-size: 20px;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    transition: all 0.4s;
+    transition-timing-function: ease-in-out;
+    cursor: not-allowed;   
+}
+.create-rh-modal-window > div {
+    border: 1px solid var(--font-grey);
+    border-radius: 2px;
+    position: absolute;
+    /* center div */
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    margin-top:1em;
+    margin-bottom:4em;
+
+    padding: 1em;
+    background: white;
+
+    max-width: 550px;
+    height: 305px;
+    cursor: auto;
+    overflow-y: auto;
+}
+.create-rh-modal-buttons{
+    margin-top: -18px;
+    width: 550px;
+    font-size: 20px;
+}
+.create-rh-modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+.create-rh-form-content{
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 34% auto;
+}
+.error-mes{
+    font-size: 13px;
+    color:orangered;
+}
+.create-rh-avatar-label{
+    background-color: #e2e5e7;
+    color: #424242;
+
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 7px 58px;
+
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    transition: .3s;
+}
+.rh-p-cam{
+    margin-bottom: -4px;
+}
+.create-rh-avatar-label:hover{
+    background-color: #dbe0e2;
+}
+.rh_avatar_img{
+    width: 14.6vw;
+    height:14.6vw;
+    object-fit: cover;
+    border-radius: 999px;
+}
+#rh_name, #rh_topic, #rh_des{
+    font-size: 16px;
+    width: 320px;
+    border: 0;
+    background-color: #F5F5F5;
+    border-radius: 2px;
+    padding: 10px;
+    margin: 0 10px 10px 20px;
+
+    resize: none;
+    overflow-y: hidden;
+}
+
+#rh_des{
+    height: 93px;
+}
+/*----------------------------------REBBITHOLE PROFILE---------------------------------------*/
+.profile-head-username{
+    overflow-wrap: break-word;
+}
+.join-rebbithole-button,
+.joined-rebbithole-button{
+    background-color: #6c8fb3;
+    background-color: #cdc8e9;
+    color: white;
+    color: black;
+    border: 0;
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: 600;
+    height: 30px;
+    width: 110px;
+    padding: 5px 10px;
+    margin-top: 12px;
+    border-radius: 3px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.join-rebbithole-button:hover{
+    background-color: #bdb3e6;
+}
+.joined-rebbithole-button{
+    background-color: #7d73b6;
+    color: white;
+}
+.joined-rebbithole-button:hover{
+    background-color: #8d80cc;
+}
+.rh-chat {
+    background-color: #e9e9e9;
+    color: #5f5f5f;
+    border: 0;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: 600;
+    height: 30px;
+    width: 50px;
+    padding: 5px 15px;
+    border-radius: 3px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.rh-chat:hover{
+    background-color: #e9e4e4;
+}
+.rh-chat-join{
+    display: none;
+}
+.rebbithole-profile-nsfw{
+    font-size: 13px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: white;
+    background-color: rgb(255, 92, 92);
+}
+.rebbitthole-about{
+    margin: 0 auto;
+    width: 33vw;
+    background-color: rgb(245, 245, 245);
+    padding: 20px;
+    font-size: 18px;
+}
+.rebbitthole-about div{
+    padding: 10px;
+}

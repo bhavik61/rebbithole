@@ -1,0 +1,129 @@
+.main-container{
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+.first {
+    float: left;
+    overflow-y: hidden;
+}
+.second {
+	display: grid;
+  	grid-template-columns: 60% 40%;
+
+    float: left;
+    max-height: 99vh;
+    overflow-y: scroll;
+}
+.overflow-dots{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.grey-font{
+    color: grey;
+}
+.greyish-font{
+    color: #5e5e5e;
+}
+.red-font{
+    color: red;
+}
+.bluish-font{
+    color: rgb(89, 89, 255);
+}
+.font-12{
+    font-size: 12px;
+}
+.font-14{
+    font-size: 14px;
+}
+.font-15{
+    font-size: 15px;
+}
+.font-16{
+    font-size: 16px;
+}
+.mr-25{
+    margin-right: 25px;
+}
+.mt-5{
+    margin-top: 5px;
+}
+.mb-5{
+    margin-bottom: 5px;
+}
+.pb-10{
+    padding-bottom: 10px;
+}
+.pl-10{
+    padding-left: 10px;
+}
+.mt-10{
+    margin-top: 10px;
+}
+.mr-10{
+    margin-right: 10px;
+}
+.mb-10{
+    margin-bottom: 10px;
+}
+.ml-10{
+    margin-left: 10px;
+}
+.a-back{
+    text-decoration: none;
+    color: #E48822;
+    color:#696969;
+    font-size: 1.3em;
+    margin: 0 9px 0 5px;
+    border-radius: 3px;
+    transition: .4s;
+}
+.a-back:hover{
+    color:#000000;
+}
+.oops{
+    background-color: #f3f3f3;
+    color:#616161;
+    font-size: 16px;
+    font-weight: 600;
+    text-align:center;
+    line-height: 70px;
+}
+.btn-cmn{
+    float:right;    
+    font-size: 18px;
+    font-weight: 600;
+    border: 0;
+    padding: 7px 20px;
+    border-radius: 3px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.btn-close-cmn{
+    background-color: white;
+    color: var(--red-ish-color);
+}
+.btn-close-cmn:hover{
+    background-color: #fff7f7;
+}
+.btn-post-cmn{
+    background-color: var(--red-ish-color);
+    color: white;
+}
+.btn-post-cmn:hover{
+    background-color: var(--red-ish-heavy-color);
+}
+.br-t-3{
+    border-radius: 3px;
+    transition: .3s;
+}
+.nav-title-head{
+    float: right;
+    margin: 0 10px;
+    font-size: 30px;
+    font-weight: 600;
+    background: -webkit-linear-gradient(rgb(156, 156, 156), #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

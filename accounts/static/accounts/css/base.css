@@ -1,0 +1,216 @@
+input{
+    caret-color:orangered;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+body{
+    background-color: rgb(245,245,245);
+    font-family: "Arial"; 
+    margin:30px;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.container, .container-s{
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #edeeef;
+    border-radius: 3px;
+    max-width: 320px;
+    height: 100%;
+
+    padding: 15px;
+
+    margin: auto;
+    margin-bottom: 10px;
+}
+/*rebbithole log and title*/
+.r-title{
+    margin: auto;
+}
+.rebbit-i{
+    height: 75px;
+    vertical-align: bottom;
+}
+.rebbithole-i{
+    height: 45px;
+}
+.r-text{
+    margin: auto;
+    color:grey;
+
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    overflow: hidden;
+    text-align: center;
+}
+/* .r-text between vertical line*/
+.r-text:before,
+.r-text:after {
+    background-color: rgb(229,228,226);
+    content: "";
+    display: inline-block;
+    height: 2px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.r-text:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+.r-text:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+.terms{
+    margin: auto;
+    width: 230px;
+    color:grey;
+    font-size: 12px;
+}
+/* register items */
+#name, #email, #username, #id_password1, #id_password2,
+ .i-otp, .email, .username, .l-password,
+ #f-i-username, #f-i-email, 
+ #f-password1, #f-password2
+{
+    height: 33px;
+    width: 260px;
+    border:1px solid #e1e1dd;
+    outline: none!important;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-top: 7px;
+    background-color: #f8fbf8;
+}
+/*
+#name:focus, #email:focus, #username:focus, #id_password1:focus, #id_password2:focus, .i-otp:focus, .email:focus, .username:focus, .l-password:focus{
+    border-radius: 6px;
+}
+*/
+/* register and login submit button -- blue */
+.s-btn, .l-btn,
+#f-check-cred, 
+#f-sub-pass
+{
+    cursor: pointer;
+    width: 275px;
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    background-color: #3897f0;
+    border-radius: 4px;
+    border: 1px solid #3897f0;
+    color: #FFFFFF;
+    transition: .5s;
+}
+.s-btn:hover, .l-btn:hover{
+    background-color: rgb(70,130,180);
+    border: 1px solid rgb(70,130,180);
+}
+
+/* otp submit button -- green */
+.v-btn{
+    width: 275px;
+    height: 30px;
+    margin-top: 15px;
+    background-color: rgb(50,205,50);
+    border: 1px solid rgb(50,205,50);
+    border-radius: 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: .5s;
+}
+.v-btn:hover{
+    background-color: rgb(34,139,34);
+    border: 1px solid rgb(34,139,34);
+}
+.i-fields{
+    margin: auto;
+    width: 270px;
+}
+.show-p1, .show-p2{
+    cursor: pointer;
+    margin-left: 230px;
+    width: 40px;
+    position: absolute;
+    transform: translateY(-165%);
+    font-size: 14px;
+    color: #777672;
+}
+.show-p3{
+    cursor: pointer;
+    margin-left: -45px;
+    margin-top: -15;
+    width: 40px;
+    position: absolute;
+    transform: translateY(100%);
+    font-size: 14px;
+    color: #777672;
+}
+.f-show-p1, .f-show-p2{
+    cursor: pointer;
+    margin-left: -45px;
+    width: 40px;
+    position: absolute;
+    transform: translateY(115%);
+    font-size: 14px;
+    color: #777672;
+}
+.show-p1:hover, .show-p2:hover,
+.show-p3:hover,
+.f-show-p1:hover, .f-show-p2:hover
+{
+    color: black;
+}
+.f-pas{
+    font-size: 13px;
+    color: grey;
+    text-decoration: none;
+    transition: .5s;
+}
+.f-pas:hover{
+    color: rgb(0, 0, 0);
+}
+.r-link, .l-link{
+    color: #3897f0;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .5s;
+}
+.r-link:hover, .l-link:hover{
+    color: #0070d8;
+}
+.reg-link, .log-link{
+    font-size: 14px;
+}
+.un-t, .un-f{
+    display: none;
+    position: fixed;
+    margin-left: 250px;
+    margin-top: -30px;
+}
+.un-f:hover{
+    cursor: pointer;
+}
+.confirmation-m-v{
+    font-size: 14px;
+    color: grey;
+    padding: 10px 0;
+}
+.con-m-v-e{
+    display: none;
+    font-size: 14px;
+    color: red;
+}
+.reg-p-e-m, .f-check-rm, .lin-e-m{
+    font-size: 14px;
+    color: red;
+}
+.lr-p-ic{
+    margin-bottom: -15px;
+}

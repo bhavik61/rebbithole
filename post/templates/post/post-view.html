@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+<div class="profile-nav-tab">
+    <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+</div>
+<article>
+    {% include 'post/post.html' %}
+    <form method="POST" action="" id="comment-form" class="mt-10"> 
+        {% csrf_token %}
+        {{comment_form.text}}
+        <input type="submit" class="comment-submit btn-cmn btn-post-cmn" id="comment-submit" value="Comment">
+    </form>
+    {{ comment_id|json_script:"comment_id" }}
+
+    <script>  
+        $(document).ready(function(){
+            el = '{{comment_id}}';
+
+            if(el){
+                var elmnt = document.getElementById(el);
+                //elmnt.scrollIntoView();
+                setTimeout(function(){
+                    elmnt.scrollIntoView();
+                },300);
+                
+                var timeleft = 6;
+                count10s = setInterval(function(){
+                    if(timeleft <= 0){
+                        clearInterval(count10s);
+                        elmnt.style.background = "#fcfcfc";
+                    }
+                    else{
+                        if(timeleft%2==0){
+                            elmnt.style.background = "#f8f8f8";
+                        }
+                        else{
+                            elmnt.style.background = "#eeeeee";
+                        }
+                    }
+                    timeleft -= 1;
+                }, 600);
+            }
+            if($(".post-view").height() > 650){
+                $("#go-to-top").css("display", "block");
+            }
+        });
+    </script>
+
+    <div class="prepend-comment" style="margin-top: -4px;"></div>
+    {% for comment in post.comment_set.all %}
+        {% if not comment.reply %}
+            {% include 'post/comment.html' %}
+        {% endif %}
+    {% empty %}
+        <div class="oops no-comments-oops">😀 Wow, such empty</div>
+    {% endfor %}
+    <!--Comment Modal-->
+    <div id="write-comment-reply" class="comment-modal-window">
+        <div>
+            <form method="POST" action="#" id="reply-form"> {% csrf_token %}
+                <input type="submit" value="Reply" class="comment-reply-submit btn-cmn btn-post-cmn" comment-id="">
+                <input type="button" value="Cancel" class="comment-modal-close btn-cmn btn-close-cmn mr-10">
+                <div class="comment-to-user">
+                    Reply To : u/<span class="comment-form-modal-comment-to"></span>
+                    <div class="comment-text-modal">
+                        <span class="comment-form-modal-comment-text font-15"></span>
+                    </div>
+                </div>
+                {{comment_form.text}}
+            </form>
+        </div>
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+    {% for rh in post.postrebbithole_set.all %}
+        <div class="post-view-rh-profile title-fonts">
+            <a href="{% url 'rebbithole' rh.rebbithole.rebbithole %}" class="post-view-rh-ar">
+                <img src="{{rh.rebbithole.avatar.url}}" alt="avatar" class="post-view-rh-avatar">
+                <div>
+                    <div class="post-view-rh-username mt-5">
+                        <span class="grey-font">r/</span>{{rh.rebbithole.rebbithole}}
+                        {% if rh.rebbithole.nsfw %}
+                            <span class="rebbithole-profile-nsfw" title="not safe for work">nsfw</span>
+                        {% endif %}
+                    </div>
+                    <div class="post-view-rh-t">
+                        {{rh.rebbithole.topic}}
+                    </div>
+                </div>
+            </a>
+            {% var 'flag' 0 %}
+            {% for r in rh.rebbithole.member_set.all %}
+                {% if r.member == request.user %}
+                    {% var 'flag' 1 %}
+                    <button type="button" class="join-rebbithole-button joined-rebbithole-button mt-10" rebbithole-id="{{rh.rebbithole.id}}">Joined</button>
+                {% endif %}
+            {% endfor %}
+            {% if flag != 1 %}
+                <button type="button" class="join-rebbithole-button mt-10" rebbithole-id="{{rh.rebbithole.id}}">Join</button>
+            {% endif %}
+            <span class="greyish-font mb-10">{{rh.rebbithole.member_set.all|length}}&nbsp;</span>{%if rh.rebbithole.member_set.all|length != 1 %}Members{% else %}Member{%endif%}
+        </div>
+    {% empty %}
+    <div class="oops" style="margin: 20px 60px;">No rebbithole in this post</div>
+    {% endfor %}
+{% endblock %}

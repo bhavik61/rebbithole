@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+
+{% now "Y-m-d" as today %}
+{% now "f" as now %}
+
+<article>
+    <script>
+        document.title = "Room | REBBITHOLE";
+    </script>
+    <div class="profile-nav-tab mb-10 title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <span class="top-right-heading">
+            Recent
+        </span>
+        <span class="nav-title-head">
+            Room
+        </span>
+    </div>
+    {% for key, val in last_messages.items %}
+        <div class="rebbithole-nav-rh-item-con rebbithole-nav-rh-item-con-room">
+            <a href="{% url 'room' key %}" class="rebbithole-nav-rh-item-room">
+                <img src="{{ val.avatar }}" class="rebbithole-nav-rh-avatar">
+                <div>
+                    <div class="rebbithole-nav-rh-name-room overflow-dots">
+                        r/{{key}}
+                    </div>
+                    <span class="recent-room-time-stamp">
+                        •
+                        {% if val.created|date:"Y-m-d" == today %}
+                            {{val.created|timesince|upto:','}} ago
+                        {% else %}
+                            {{ val.created|date:"d/m/y, H:i" }}
+                        {% endif %}
+                    </span>
+                    <div class="font-14 grey-font recent-room-mes-det overflow-dots">
+                        {{val.message}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% empty %}
+        <div class="oops">😀 Wow, such empty</div>
+    {% endfor %}
+</article>
+{% endblock %}
+
+{% block top %}
+<div class="top-right-rooms">
+    <div class="top-right-heading title-fonts">
+		All Rooms
+	</div>
+    {% for rh in rebbitholes %}
+        <a href="{% url 'room' rh.rebbithole.rebbithole %}" class="top-right-rebbithole">
+			<img src="{{ rh.rebbithole.avatar.url }}" class="rebbithole-nav-rh-avatar">
+			<div class="rebbithole-nav-rh-name-room overflow-dots">
+				r/{{rh.rebbithole.rebbithole}}
+				<div class="font-14 grey-font">Join Conversation</div>
+			</div>
+		</a>
+    {% empty %}
+        <div class="oops">Join rebbithole to start conversation</div>
+    {% endfor %}
+</div>
+{% endblock %}

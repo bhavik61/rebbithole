@@ -1,0 +1,32 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block content %}
+    <title>sign up | REBBITHOLE</title>
+    
+    <div class="register">
+        <div class="r-text">
+            <b>Sign up to REBBITHOLE</b>
+        </div>
+        <div class="reg-p-e-m"></div>
+        <form action="{% url 'verification' %}" id="reg-form" method="POST">{% csrf_token %}
+            <!--{{form.as_p}}-->
+            <div class="i-fields">
+                {{form.name}}
+                {{form.username}}
+                <span class="un-t">✅</span>
+                <span class="un-f">❌</span>
+                {{form.email}}
+                {{form.password1}}
+                <span class="show-p1">Show</span>
+                {{form.password2}}
+                <span class="show-p2">Show</span>
+            <input type="submit" value="Sign up" class="s-btn">
+            
+            <div class="terms">
+                By signing up, you agree to our <b>Terms, Data Policy</b> and <b>Cookies Policy</b>.
+            </div>
+            </div>
+        </form>
+    </div>
+    <span id="reg-un-c" username-checked="false"></span>
+{% endblock %}

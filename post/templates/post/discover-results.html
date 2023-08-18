@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+<article>
+    <script>
+        document.title = "Discover | REBBITHOLE";
+    </script>
+    <div class="profile-nav-tab title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <button type="button" class="dis-nav-tab-post dis-nav-actice">Posts</button>
+        <button type="button" class="dis-nav-tab-rh">Rebbitholes</button>
+        <button type="button" class="dis-nav-tab-profile">Profiles</button>
+        <span class="nav-title-head" title="to search user profile start search by 'u/'">
+            Discover
+        </span>
+    </div>
+    <form method="post" action="" id="dis-res">
+        {% csrf_token %}
+        <div class="d-search-block">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-search d-search-block-si" title="Search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-x-circle d-search-block-ci" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </span>
+            <input type="text" class="d-search-input" id="d-search-input" placeholder="Search" autocomplete="off"/>
+        </div>
+    </form>
+    <script>
+        $("#d-search-input").val("{{res}}")
+    </script>
+    <div id="dis-nav-post">
+        {% for post in posts %}
+            {% include 'post/post.html' %}
+        {% empty %}
+            <div class="oops">No matching results</div>
+        {% endfor %}
+    </div>
+    <div id="dis-nav-rh">
+        {% for rh in rebbitholes %}
+            <div class="rebbithole-nav-rh-item-con rebbithole-nav-rh-item-con-nav">
+                <a href="{% url 'rebbithole' rh.rebbithole %}" class="rebbithole-nav-rh-item">
+                    <img src="{{ rh.avatar.url }}" class="rebbithole-nav-rh-avatar">
+                    <div class="rebbithole-nav-rh-name">
+                        r/{{rh.rebbithole}}
+                        <div class="font-14 grey-font">{{rh.rebbithole.member|length}} members</div>
+                    </div>
+                </a>
+                {% var 'flag' 0 %}
+                {% for r in rh.member_set.all %}
+                    {% if r.member == request.user %}
+                        {% var 'flag' 1 %}
+                        <button type="button" class="join-rebbithole-button joined-rebbithole-button mt-10" rebbithole-id="{{rh.id}}">Joined</button>
+                    {% endif %}
+                {% endfor %}
+                {% if flag != 1 %}
+                    <button type="button" class="join-rebbithole-button mt-10" rebbithole-id="{{rh.id}}">Join</button>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="oops">No matching results</div>
+        {% endfor %}
+    </div>
+    <div id="dis-nav-profile">
+        {% for profile in profiles %}
+            <div class="profile-follow-ing-wers-item">
+                <a href="{% url 'user-profile' profile.username %}" class="">
+                    <img src="{{profile.avatar.url}}" alt="avatar">
+                    <div>
+                        <div> u/{{profile.username}} </div>
+                        <div> karma </div>
+                    </div>
+                </a>
+                {% var 'flag' 0 %}
+                {% for fu in request.user.following_set.all %}
+                    {% if fu.followed == profile %}
+                        {% var 'flag' 1 %}
+                        <button type="button" class="following-button" user-id="{{profile.id}}">Following</button>
+                    {% endif %}
+                {% endfor %}
+                {% if flag != 1 %}
+                    <button type="button" class="follow-button" user-id="{{profile.id}}">Follow</button>            
+                {% endif %}
+                <!--{% if profile in fing_list %}
+                    <button type="button" class="following-button" user-id="{{profile.id}}">Following</button>
+                {% else %}
+                    <button type="button" class="follow-button" user-id="{{profile.id}}">Follow</button>
+                {% endif %}-->
+            </div>
+        {% empty %}
+            <div class="oops">No matching results</div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+{% include 'post/top.html' %}
+{% endblock %}

@@ -1,0 +1,237 @@
+/* Post Modal */
+.modal-window {
+    position: fixed;
+    background-color: var(--modal-bg);
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    transition: all 0.4s;
+    transition-timing-function: ease-in-out;
+
+    cursor: not-allowed;
+    font-size: 20px;
+}
+/*  
+.modal-window:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+
+    
+    animation-name: post-modal;
+    animation-duration: 1s;  
+    animation-fill-mode: both;
+}
+*/
+.modal-window > div {
+    border: 1px solid var(--font-grey);
+    border-radius: 2px;
+    position: absolute;
+    /* center div */
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    margin-top:1em;
+    margin-bottom:4em;
+    padding: 1em;
+    background: white;
+    max-width: 640px;
+    min-height: 400px;
+    cursor: auto;
+    overflow-y: auto;
+}
+.modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+/*  
+@keyframes post-modal {
+    from{
+            position: absolute;
+            top: -50%;
+            left:50%;
+            transform: translate(-50%, -50%)
+    }
+    to{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+*/
+/* REBBIHOLE SEARCH */
+.add-rebbithole-block {
+    position: relative;
+    width: 350px;
+    transition: .3s;
+} 
+.rebbithole-input {
+    box-sizing: border-box;
+    background-color: #F5F5F5;    
+    color: #646464;
+
+    padding: 10px 35px 10px 25px;
+    outline: none;
+    width: 300px;
+    border: 0;
+    
+    border-radius: 3px;
+    font-size: 1.1rem;
+    transition: .3s;
+} 
+input[placeholder][class="rebbithole-input"] {
+    color: #000;
+} 
+/*
+.rebbithole-input:focus {
+      border: red;
+}
+*/
+.add-rh-i {
+    color: rgb(100,100,100);
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 10px;
+    position: absolute;
+    left: 0px;
+    transition: .3s;
+}
+.add-rh:hover{
+    background-color: hsl(0, 0%, 90%);
+}
+ul.ui-autocomplete {
+    z-index: 1100;
+}
+/*
+.post-rebbithole-items{
+}
+*/
+.post-rebbithole-item{
+    display: inline-block;
+    font-size: .8em;
+    padding: 5px;
+    margin: 0 10px 0 0;
+    background-color: hsl(41, 35%, 91%);
+    border-radius: 3px;
+    transition: .3s;
+}
+.post-rebbithole-item-remove{
+    font-size: 1.2em;
+    padding-left: 5px;
+    color: grey;
+    cursor: pointer;
+}
+.post-rebbithole-item-remove:hover{
+    color: rgb(180, 0, 0);
+}
+.ui-autocomplete > li > div {
+    display: block;
+    padding: 12px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333333;
+    white-space: nowrap;
+    transition: .2s;
+}
+/*
+.ui-autocomplete > li > div:hover {
+    background-color: rgb(255, 116, 52);
+    border: 0;
+}
+*/
+#title, #text{
+    font-size: 18px;
+    width: 620px;
+    border: 0;
+    outline: none;
+    background-color: #F5F5F5;
+    border-radius: 2px;
+    padding: 10px;
+    resize: none;
+    overflow-y: hidden;
+}
+#text{
+    margin-top: 10px;
+    font-size: 16px;
+}
+#title:focus,
+#text:focus{
+    border: 0;
+    background-color: #eeeeee;
+}
+/* Image Drag and Drop */
+.image-dropezone-wrapper{
+    width: 678px;
+    height: 50px;
+    overflow: hidden;
+    border: 2px dashed var(--font-grey);
+    border-radius: 2px;
+    position: fixed;
+    bottom: 25px;
+    left: auto;
+    margin-left: -21px;
+    transition: .3s;
+}
+#upload-image{
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.image-dropzone-area {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgb(238, 237, 237);
+    background: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    transition: .3s;
+}
+.image-dropezone-wrapper:hover .image-dropzone-area{
+    color: var(--font-grey);
+}
+.image-preview-area ul li{
+    margin: 15px 15px 0 0;
+    display: inline-block;
+    position: relative;
+    transition: .3s;
+}
+.image-preview-area ul li img{
+    width: 15em;
+    object-fit:cover;
+}
+.trash-ico {
+    color: #e46969;
+    background-color: #f6e9f8;
+
+    position: absolute;
+    z-index: 99;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 999px;
+    
+    transition: .3s;
+    cursor: pointer;
+}
+.trash-ico:hover {
+    color: #df2b2b;
+    background-color: #f7eff8;
+}

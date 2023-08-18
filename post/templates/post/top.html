@@ -1,0 +1,15 @@
+{% load static %}
+<div class="top-right">
+	<div class="top-right-heading title-fonts">
+		Top
+	</div>
+	{% for rh in top_rh %}
+		<a href="{% url 'rebbithole' rh.rebbithole %}" class="top-right-rebbithole">
+			<img src="{{ rh.avatar.url }}" class="rebbithole-nav-rh-avatar">
+			<div class="rebbithole-nav-rh-name-room overflow-dots">
+				r/{{rh.rebbithole}}
+				<div class="font-14 grey-font">{{rh.member_set.all|length}} members</div>
+			</div>
+		</a>
+	{% endfor %}
+</div>

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--css files-->
+    <link rel="stylesheet" href="{% static 'accounts/css/base.css' %}">
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="r-title">
+            <img src="{% static 'accounts/images/rebbithole.png' %}" alt="rebbithole"class="rebbithole-i">
+            <img src="{% static 'accounts/images/rebbit.png' %}" alt="rebbithole"class="rebbit-i">
+        </div>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+        {% if register %}
+            <div class="container-s">
+                <div class="reg-link">Have an account? <a href="{% url 'login' %}" class="r-link" >Log in</a>
+            </div>
+        {% elif login %}
+            <div class="container-s">
+                <div class="log-link">Don't have an account? <a href="{% url 'register' %}" class="l-link" >Sign up</a>    
+            </div>        
+        {% elif verification %}
+            <div class="container-s">
+                <div class="con-m-v-e">That code isn't valid</div>
+                <div class="log-link">Didn't receive confirmation code? <a href="{% url 'register' %}" class="l-link" >Resend</a>    
+            </div>
+        {% endif %}
+    
+
+</body>
+</html>
+
+<!--js files-->
+<script type="text/javascript" src="{% static 'accounts/js/base.js' %}"></script>
+<script type="text/javascript" src="{% static 'accounts/js/index.js' %}"></script>

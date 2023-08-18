@@ -1,0 +1,129 @@
+{% load uvar %}
+{% now "Y-m-d" as today %}
+
+<div class="post-view" id="{{post.id}}" post-id="{{post.id}}">
+    <div class="post-head">
+        <a href="{% url 'user-profile' post.author.username %}">
+            <img src="{{post.author.avatar.url}}" alt="avatar" class="post-head-avatar">
+        </a>
+        <div class="post-head-text">
+            <div>
+                <a  {% if post.author == request.user %}
+                        href="{% url 'profile' %}"
+                    {% else %}
+                        href="{% url 'user-profile' post.author.username %}"
+                    {% endif %} class="post-head-username">u/{{post.author.username}}</a> 
+                <span class="time-stamp">
+                    •
+                    {% if post.created|date:"Y-m-d" == today %}
+                        {{post.created|timesince|upto:','}} ago
+                    {% else %}
+                        {{ post.created|date:"d/m/y, H:i" }}
+                    {% endif %}
+                </span>
+            </div>    
+            {% if post.postrebbithole_set.all %}
+                {% for rh in post.postrebbithole_set.all %}
+                    <a href="{% url 'rebbithole' rh.rebbithole.rebbithole %}" class="post-head-rh" id="{{rh.rebbithole.id}}">
+                        <img src="{{rh.rebbithole.avatar.url}}" alt="avatar">
+                        <span>r/{{rh.rebbithole.rebbithole}}</span>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="post-head-options-dropdown">
+            <span class="post-head-options">&#8943;</span>
+            <div class="post-head-options-dropdown-content">
+                <a href="{% url 'post-view' post.id %}" class="post-head-options-see-post href color-black" post-id="{{post.id}}">Comments</a>
+                {% if post.author == request.user %}
+                    <div class="post-head-options-delete" post-id="{{post.id}}">Delete</div>
+                {% endif %}
+                {% if post.author != request.user %}
+                    <div class="post-head-options-report" post-id="{{post.id}}" report="post">Report</div>
+                    <div class="post-head-options-not-interested" post-id="{{post.id}}" title="If you don't want to see this Post again">Not Interested</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="post-body">
+        <a {% if not reply %} href="{% url 'post-view' post.id %}" {% endif %} class="post-body-title">
+            <div>
+                {{post.title}}
+            </div>
+            {% if post.text != "" %}
+                <div class="post-body-text mt-5">
+                    {{post.text}}
+                </div>
+            {% endif %}
+        </a>
+        {% if post.postimage_set.all %}
+            <ul class="post-body-img">
+                {% for image in post.postimage_set.all %}
+                    <img class="post-body-image" id="{{image.image.id}}" src="{{image.image.url}}" alt="image <-/->" loading="lazy">
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <!-- Image Modal -->
+        <div id="post-image-preview" class="post-image-preview-modal">
+            <!--div id="myModal" class="modal"-->
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-lg post-image-preview-close" id="post-image-preview-cls" viewBox="0 0 16 16"><path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/></svg>
+            </span>
+            <img class="post-image-preview-modal-content" id="post-image-preview-image">
+        </div>
+    </div>
+    <div class="post-activity">
+        <span class="post-activity-item post-activity-bookmark" post-id="{{post.id}}" bookmark="post" title="Bookmark Post"> 
+            {% var 'flag' 0 %}
+            {% for bm in post.bookmark_set.all %}
+                {% if bm.user == request.user %}
+                    {% var 'flag' 1 %}
+                    <svg style='color:black' xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' class='bi bi-bookmark-check-fill' viewBox='0 0 16 16'>
+                        <path fill-rule='evenodd' d='M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z'/>
+                    </svg>
+                {% endif %}
+            {% endfor %}
+            {% if flag != 1 %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark p-bookmark" viewBox="0 0 16 16">
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                </svg>
+            {% endif %}
+        </span>
+        
+        <a {% if not reply %} href="{% url 'post-view' post.id %}" {% endif %} class="post-comment-href">
+            <span class="post-activity-item post-activity-comment">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-chat-square-dots p-comment" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                </svg>
+                {{post.comment_set.all|length}} Comments
+            </span>
+        </a>
+        
+        <span class="post-activity-item post-activity-vote">
+            <svg    {% for dv in post.vote_set.all %}
+                        {% if dv.voter == request.user %}
+                            {% if dv.downvote == True %}
+                                style="color:hsl(293, 70%, 46%);"
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+            post-id="{{post.id}}" title="Downvote Post" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shift-fill p-downvote" viewBox="0 0 16 16">
+                <path d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"/>
+            </svg>
+            <span class="post-activity-vote-count" title="Vote Count">
+                {{post.vote_count}}
+            </span>
+            <svg    {% for uv in post.vote_set.all %}
+                        {% if uv.voter == request.user %}
+                            {% if uv.upvote == True %}
+                                style="color:hsl(9, 100%, 64%);"
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}  
+            post-id="{{post.id}}" title="Upvote Post" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shift-fill p-upvote" viewBox="0 0 16 16">
+                <path d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"/>
+            </svg>
+        </span>
+    </div>
+</div>

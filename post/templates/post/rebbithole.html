@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load uvar %}
+
+{% block content %}
+<script>
+    document.title = "r/{{rebbithole}} | REBBITHOLE";
+</script>
+<div class="profile-nav-tab title-fonts">
+    <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+    <button type="button" class="profile-nav-tab-post profile-nav-actice">Posts</button>
+    <button type="button" class="profile-nav-tab-comment">About</button>
+</div>
+<article>
+    <div id="profile-nav-post">
+        {% for post in posts %}
+            {% include 'post/post.html' %}
+        {% empty %}
+            <div class="oops">be the first one to post in r/{{rebbithole}}</div>
+        {% endfor %}
+    </div>
+    <div id="profile-nav-comment">
+        <div class="rebbitthole-about">
+            <div> 
+                r/{{rebbithole}} was created {{rebbithole.created|timesince}} ago.
+            </div>
+            <div>
+                Moderator
+                {% for rh in rebbithole.moderator_set.all %}
+                    <li>
+                        <a href="{% url 'user-profile' rh.moderator.username %}" class="href">
+                            u/{{rh.moderator.username}}
+                        </a>
+                    </li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+<div class="user-profile-options-dropdown">
+    <span class="user-profile-options">&#8943;</span>
+    <div class="user-profile-options-dropdown-content" style="margin-left:-150px;">
+        <div id="options-report-rebbithole" rebbithole-id="{{rebbithole.id}}" report="rebbithole">Report rebbithole</div>
+    </div>
+</div>
+<div class="profile title-fonts">
+    <img style="border-radius: 999px;" src="{{rebbithole.avatar.url}}" alt="avatar" class="profile-avatar">
+    <div class="profile-head-username">
+        <span class="grey-font">r/</span>{{rebbithole.rebbithole}}
+        {% if rebbithole.nsfw %}
+            <span class="rebbithole-profile-nsfw" title="not safe for work">nsfw</span>
+        {% endif %}
+    </div>
+    <span class="profile-karma mr-10">
+        <span class="greyish-font">{{rebbithole.member_set.all|length}}</span>
+        {%if rebbithole.member_set.all|length != 1 %}Members{% else %}Member{%endif%}
+    </span>
+    |
+    <span class="r-u-name ml-10">{{rebbithole.topic}}</span>
+    <br>
+    {% var 'flag' 0 %}
+    {% for rh in rebbithole.member_set.all %}
+        {% if rh.member == request.user %}
+            {% var 'flag' 1 %}
+            <a href="{% url 'room' rebbithole.rebbithole %}" class="rh-chat" rebbithole-id="{{rebbithole.id}}">Room</a>    
+            <button type="button" class="join-rebbithole-button joined-rebbithole-button mt-10" rebbithole-id="{{rebbithole.id}}">Joined</button>
+        {% endif %}
+    {% endfor %}
+    {% if flag != 1 %}
+        <a href="{% url 'room' rebbithole.rebbithole %}" class="rh-chat rh-chat-join" rebbithole-id="{{rebbithole.id}}">Conversate</a>
+        <button type="button" class="join-rebbithole-button mt-10 " rebbithole-id="{{rebbithole.id}}">Join</button>
+    {% endif %}
+    <div class="profile-bio mt-10 mb-10">{{rebbithole.description}}</div>
+</div>
+{% endblock %}

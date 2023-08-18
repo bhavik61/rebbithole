@@ -1,0 +1,124 @@
+body{
+    font-family: "Arial"; 
+    background-color: var(--main-bg);
+    scroll-behavior: smooth;
+}
+.title-fonts{
+    font-family: 'Trebuchet MS', sans-serif;
+}
+.title-head-fonts{
+    font-family: Verdana;
+}
+*{
+    padding:0;
+    margin:0;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+:root {
+    --that-blue-color: hsl(209, 86%, 58%);
+    --nav-yellow: hsl(32, 78%, 51%);
+    --cool-color:hsl(43, 78%, 51%);
+
+    --main-bg: hsl(210, 6%, 93%);
+    --card-bg: hsl(0, 0%, 100%);
+    --modal-bg: hsla(0, 1%, 64%, 0.637);
+
+    --hover-icon-b: #ebf5f0;
+    --hover-color: #f5f5f5c0;
+    --hover-nav-item: #f5f5f5c0;
+    
+    --red-ish-color: hsl(8, 95%, 63%);
+    --red-ish-heavy-color: hsl(8, 90%, 51%);
+    --red-ish-light-color: hsl(0, 100%, 72%);
+    --red-ish-lighter-color: hsl(0, 81%, 79%);
+
+    --font-grey-shade: rgb(77, 76, 76);
+    --font-black: black;
+    --font-grey: grey;
+
+}
+
+.href{
+    text-decoration: none;
+    color: inherit;
+}
+.color-black{
+    color: black;
+}
+
+#go-to-top{
+    display: none;
+    position: fixed;
+    outline: none;
+
+    bottom: 30px;
+    right: 310px;
+    z-index: 99;
+    font-size: 25px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 999px;
+    background-color: #fff7f7;
+    color: red;
+    color: #E48822;
+
+    
+    -webkit-box-shadow: 0px 9px 29px -11px #000000; 
+    box-shadow: 0px 9px 29px -11px #000000;
+
+    transition: .3s;
+    cursor: pointer;
+}
+#go-to-top:hover{
+    background-color: #fdf4e1;
+    color: #dd7e11;
+}
+
+#q-noti-c {
+    display: none;
+    position: fixed;
+    margin: auto;
+
+    z-index: 1111;
+
+    font-size: 18px;
+    font-weight: 600;
+    padding: 5px 10px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 3px;
+
+    border-left: 5px solid #92b6fa;
+
+    color: black;
+    background: white;
+    -webkit-box-shadow: 0px 9px 29px -11px #000000; 
+    box-shadow: 0px 9px 29px -11px #000000;
+}
+.q-noti-c-red {
+    border-left: 5px solid #ffad69;
+}
+#q-noti-c span{
+    padding: 0 10px;
+}

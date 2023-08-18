@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<article>
+    <script>
+        document.title = "Bookmark | REBBITHOLE";
+    </script>
+    <div class="profile-nav-tab mb-10 title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <button type="button" class="profile-nav-tab-post profile-nav-actice">Posts</button>
+        <button type="button" class="profile-nav-tab-comment">Comments</button>
+        <span class="nav-title-head">
+            Bookmark
+        </span>
+    </div>
+    <div id="profile-nav-post">
+        {% for post in posts %}
+            {% include 'post/post.html' %}
+        {% empty %}
+            <div class="oops">😀 Wow, such empty</div>
+        {% endfor %}
+    </div>
+    <div id="profile-nav-comment">
+        {% for comment in comments %}
+            {% include 'post/comment.html' %}
+        {% empty %}
+            <div class="oops">😀 Wow, such empty</div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+{% include 'post/top.html' %}
+{% endblock %}

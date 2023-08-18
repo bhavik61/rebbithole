@@ -1,0 +1,25 @@
+.top-right{
+    margin: 10px 48px;
+    width: 290px;
+    border-radius: 2px;
+    padding: 11px 0;
+    background-color: #f8f9f5;
+    transition: .3s;
+}
+.top-right-heading{
+    margin: 5px 0 10px 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.top-right-rebbithole{
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+
+    font-size: 16px;
+    padding: 5px 15px;
+    transition: .4s;
+}
+.top-right-rebbithole:hover{
+    background-color: #ffffff;
+}

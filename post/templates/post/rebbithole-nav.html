@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<article>
+    <script>
+        document.title = "Rebbithole | REBBITHOLE";
+    </script>
+    <!-- CREATE REBBITHOLE MODAL -->
+    <div class="create-rh-modal-window">
+        <div>
+            <form method="POST" id="create-rh-form" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="create-rh-modal-buttons">
+                    <span class="account-update-modal-ttl title-fonts">Dig Rebbithole</span>
+                    <input type="submit" id="create-rh-submit" class="btn-cmn btn-post-cmn " value="Create">
+                    <input type="button" value="Cancel" class="create-rh-modal-close btn-cmn btn-close-cmn">
+                </div>
+                <br>
+                <div class="error-mes"></div>
+                <div class="create-rh-form-content">
+                    <div>
+                        <label for="rh_avatar" class="create-rh-avatar-label">
+                            <img class="rh-p-cam" src="https://s2.svgbox.net/materialui.svg?ic=image&color=000" width="20" height="20">
+                            Avatar
+                        </label>
+                        {{create_rh_form.avatar}}
+                        <img class="rh_avatar_img" src="{% static 'post/images/rh.png' %}" alt="avatar">
+                    </div>
+                    <div>
+                        {{create_rh_form.rebbithole}}
+                        {{create_rh_form.topic}}
+                        {{create_rh_form.description}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="profile-nav-tab mb-10 title-fonts">
+        <a href="{{request.META.HTTP_REFERER|escape}}" class="a-back">🡰</a>
+        <button type="button" class="profile-nav-tab-post profile-nav-actice">Joined</button>
+        <button type="button" class="profile-nav-tab-comment">Moderate</button>
+        <span class="nav-title-head">
+            Rebbithole
+        </span>
+        <button class="rebbithole-nav-create-rh">rebbithole +</button>
+    </div>
+    <div class="rebbithole-dom-con"></div>
+    <div id="profile-nav-post">
+        {% for rh in request.user.member_set.all reversed %}
+            <div class="rebbithole-nav-rh-item-con rebbithole-nav-rh-item-con-nav">
+                <a href="{% url 'rebbithole' rh.rebbithole.rebbithole %}" class="rebbithole-nav-rh-item">
+                    <img src="{{ rh.rebbithole.avatar.url }}" class="rebbithole-nav-rh-avatar">
+                    <div class="rebbithole-nav-rh-name">
+                        r/{{rh.rebbithole.rebbithole}}
+                        <div class="font-14 grey-font">{{rh.rebbithole.member_set.all|length}} members</div>
+                    </div>
+                </a>
+                <button type="button" class="join-rebbithole-button joined-rebbithole-button" rebbithole-id="{{rh.rebbithole.id}}">Joined</button>
+            </div>
+        {% empty %}
+            <div class="oops">😀 Wow, such empty</div>
+        {% endfor %}
+    </div>
+    <div id="profile-nav-comment">
+        {% for rh in request.user.moderator_set.all reversed %}
+            <div class="rebbithole-nav-rh-item-con rebbithole-nav-rh-item-con-nav">
+                <a href="{% url 'rebbithole' rh.rebbithole.rebbithole %}" class="rebbithole-nav-rh-item">
+                    <img src="{{ rh.rebbithole.avatar.url }}" class="rebbithole-nav-rh-avatar">
+                    <div class="rebbithole-nav-rh-name">
+                        <span>r/{{rh.rebbithole.rebbithole}}</span>
+                        <div class="font-14 grey-font">{{rh.rebbithole.member_set.all|length}} members</div>
+                    </div>
+                </a>
+                <button style="margin-top:10px; height:30px;" type="button" class="join-rebbithole-button joined-rebbithole-button" rebbithole-id="{{rh.rebbithole.id}}">Joined</button>
+            </div>
+        {% empty %}
+            <div class="oops">😀 Wow, such empty</div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}
+
+{% block top %}
+{% include 'post/top.html' %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block content %}
+<title>Login | REBBITHOLE</title>
+<div class="login">
+    <div class="r-text">
+        <b>Log in to REBBITHOLE</b>
+    </div>
+    <div class="lin-e-m"></div>
+    <form method="POST" action="{% url 'login' %}" id="lin-form">{% csrf_token %}
+        <!--
+        <input type="text" placeholder="Email" name="email" class="email">
+        -->
+        <input type="text" placeholder="Username" name="username" class="username" autofocus required>
+
+        <input type="password" placeholder="Password" name="password" class="l-password" required>
+        <span class="show-p3">Show</span>
+        <input type="submit" value="Log in" class="l-btn">
+    </form>
+    <span ><a href="{% url 'forgot-password' %}" class="f-pas">Forgot Password?</a></span>
+</div>
+{% endblock %}
